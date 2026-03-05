@@ -185,9 +185,25 @@ node output/generate_[name].js
 
 If execution fails, read the error, fix the script, and retry.
 
-## Phase 4: Distribution
+## Phase 4: Distribution（確認式）
 
-After successful PPTX generation:
+PPTX生成が成功したら、**必ずユーザーに確認してから** 配信処理を行う。
+
+### Step 1: ローカル完了を報告
+生成されたファイルのパスを伝える:
+```
+スライドが完成しました: output/[filename].pptx
+```
+
+### Step 2: 配信するか確認
+AskUserQuestion で以下を確認する:
+```
+「GitHubにも配信しますか？（Discord/メール通知が自動実行されます）」
+- はい → Phase 4 の配信処理を実行
+- いいえ → ここで完了。output/ のファイルをそのままお使いください
+```
+
+### Step 3: 配信処理（ユーザーが「はい」の場合のみ）
 
 ```bash
 # 1. Copy PPTX
@@ -210,7 +226,7 @@ git merge [branch]
 git push -u origin main
 ```
 
-## Resolving Repository URL for Download Links
+### Step 4: ダウンロードURL案内（配信した場合のみ）
 
 ```bash
 # Get the GitHub remote URL
@@ -223,9 +239,8 @@ BRANCH=$(git branch --show-current)
 ```
 
 ## Output
-- Generated PPTX file path
-- Download URLs (GitHub)
-- Slide count and pattern summary
+- Generated PPTX file path (always)
+- Download URLs on GitHub (only if user chose to distribute)
 
 ## Constraints
 - NEVER modify scripts/template.js (except via design-template skill for color changes)

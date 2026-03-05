@@ -109,9 +109,11 @@ User Request
 **Input**: slide_plan, template configuration
 **Actions**:
 - Phase 2: Generate Node.js script at `output/` (project root relative)
-- Phase 3: Execute script → produce PPTX
-- Phase 4: Copy to `downloads/` → PDF convert → git push → merge to main
-**Output**: PPTX path, PDF path, download URLs
+- Phase 3: Execute script → produce PPTX in `output/`
+- Phase 4 (確認式): ユーザーに「GitHubにも配信しますか？」と確認
+  - **はい** → `downloads/` にコピー → PDF変換 → git push → merge to main
+  - **いいえ** → `output/` のファイルで完了（ローカルのみ）
+**Output**: PPTX path (always), GitHub download URLs (only if distributed)
 
 ## Data Flow
 

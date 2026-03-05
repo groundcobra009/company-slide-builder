@@ -80,21 +80,28 @@ pres.writeFile({ fileName: outputPath })
 node output/generate.js
 ```
 
-### Phase 4: PDF変換 + GitHubにプッシュ（ダウンロード用）
+### Phase 4: 配信（確認式 — ローカル or GitHub）
 
-スライド生成が成功したら、以下の手順でPDF変換とGitHubへのプッシュを行ってください。
-ユーザーはGitHub上からPPTXとPDFの両方をダウンロードできます。
-プッシュ後、GitHub Actions が自動でメールとDiscordに通知します（PPTX + PDF 添付）。
+スライド生成が成功したら、**必ずユーザーに確認してください**:
 
-#### フォルダ構成
+```
+「GitHubにも配信しますか？（Discord/メール通知が自動実行されます）」
+→ はい: 下記の配信手順を実行
+→ いいえ: output/ のファイルで完了（ローカルのみ）
+```
+
+#### ローカルのみの場合
+
+`output/` ディレクトリにあるPPTXファイルのパスをユーザーに案内して完了です。
+`output/` はgitignoredなので、GitHubには一切影響しません。
+
+#### GitHubに配信する場合
 
 ```
 downloads/
-├── pptx/    ← PowerPointファイル
-└── pdf/     ← PDFファイル
+├── pptx/    ← PowerPointファイル（git tracked）
+└── pdf/     ← PDFファイル（git tracked）
 ```
-
-#### 手順
 
 1. PPTXファイルを `downloads/pptx/` にコピーする
 2. LibreOfficeでPDF変換を試みる（失敗してもGitHub Actions側で自動変換される）
@@ -118,7 +125,7 @@ git commit -m "Add 生成ファイル名.pptx + PDF"
 git push -u origin <現在のブランチ名>
 ```
 
-#### 通知フロー（自動）
+#### 通知フロー（配信時のみ自動）
 
 プッシュ後、GitHub Actions が以下を自動実行します:
 - **PDF未生成の場合**: LibreOffice で PPTX → PDF 変換してコミット
@@ -127,7 +134,7 @@ git push -u origin <現在のブランチ名>
 
 > 通知にはGitHub Secretsの設定が必要です。未設定の項目はスキップされます。
 
-#### ダウンロードURL
+#### ダウンロードURL（配信時のみ）
 
 プッシュ後、ユーザーにGitHub上のダウンロードURLを案内してください:
 - PPTX: `https://github.com/<OWNER>/<REPO>/blob/<ブランチ名>/downloads/pptx/ファイル名.pptx`
@@ -342,10 +349,11 @@ t.addMatrixTableSlide(pres, "タイトル", "キーメッセージ", {
 - `scripts/template.js` のスライドパターン関数は編集しないでください（カラー値の変更は `design-template` スキル経由で行う）
 - 各スライドには必ず「キーメッセージ」を入れてください（2階建て構造の上段）
 - 結論ファーストの原則を守ってください
-- **スライド生成後は必ず `downloads/pptx/` にコピーし、可能なら `downloads/pdf/` にもPDF変換してGitHubにプッシュしてください**（Phase 4）
+- **スライド生成後はユーザーに「GitHubにも配信しますか？」と確認してください**（Phase 4: 確認式）
+- ローカルのみの場合: `output/` のファイルパスを案内して完了
+- GitHub配信する場合: `downloads/pptx/` にコピー → PDF変換 → git push → main にマージ（下記「マージルール」参照）
 - `downloads/pptx/` と `downloads/pdf/` フォルダはGitHub経由のダウンロード専用です
 - プッシュ後、GitHub Actions が自動でメール（Gmail）とDiscord（Webhook）に通知します
-- **スライド作成が完了したら、作業ブランチをメインブランチ（main）にマージしてください**（下記「マージルール」参照）
 
 ## マージルール
 
