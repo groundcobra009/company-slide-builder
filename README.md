@@ -1,29 +1,72 @@
 # Company Slide Builder
 
-Claude Codeに指示するだけで、全22パターンの高品質ビジネススライドを自動生成します。
+Claude Codeに指示するだけで、全22パターンの高品質ビジネススライドを自動生成するClaude Codeスキルです。
 トヨマネ式メソッド + Cynthialyデザインシステム + ルバート図解パターンを組み合わせた設計思想。
 
-## セットアップ
+> **Note**: このリポジトリは現在プライベートです。将来的にパブリック公開を予定しています。
+
+## クイックスタート
+
+### 前提条件
+
+- [Node.js](https://nodejs.org/) v16以上
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) がインストール済み
+
+### 1. リポジトリをクローン
 
 ```bash
-# 1. クローン
-git clone <このリポジトリのURL>
+git clone https://github.com/groundcobra009/company-slide-builder.git
 cd company-slide-builder
-
-# 2. 依存関係インストール
-npm install
-
-# 3. 出力ディレクトリ作成
-mkdir -p output
-
-# 4. 環境変数設定（通知機能を使う場合）
-cp .env.example .env
-# .env を編集
 ```
+
+### 2. 依存関係をインストール
+
+```bash
+npm install
+```
+
+### 3. 出力ディレクトリを作成
+
+```bash
+mkdir -p output
+```
+
+### 4. Claude Codeで使う
+
+```bash
+claude
+```
+
+Claude Codeが起動したら、自然言語で指示するだけでスライドが作成されます:
+
+```
+「AI市場の最新動向について10枚のプレゼン資料を作って」
+「株式会社〇〇のブランドカラーでテンプレートを設定して」
+```
+
+### 5. 通知機能を使う場合（任意）
+
+スライド生成後にDiscordやメールで自動通知を受け取りたい場合は、環境変数を設定してください。
+
+```bash
+cp .env.example .env
+# .env を編集して自分のメールアドレス等を設定
+```
+
+GitHub Secretsの設定方法は [環境変数（GitHub Secrets）](#環境変数github-secrets) を参照してください。
 
 ## 使い方
 
-`scripts/template.js` をrequireしてスクリプトを作成・実行します。
+### Claude Code経由（推奨）
+
+Claude Codeを起動してスライド作成を指示するだけです。内部で以下のスキルが自動的に連携します:
+
+- **slide-builder**: トピックリサーチ → トヨマネ式設計 → スクリプト生成 → PPTX出力 → 配信
+- **design-template**: 企業ブランドカラーのリサーチ・適用、またはモノトーンデフォルト設定
+
+### スクリプトを直接書く場合
+
+`scripts/template.js` をrequireしてNode.jsスクリプトを作成・実行できます。
 
 ```javascript
 var path = require("path");
@@ -44,6 +87,7 @@ pres.writeFile({ fileName: path.resolve(__dirname, "output/presentation.pptx") }
 Claude Codeから使えるスキルが2つあります。
 
 ### 1. slide-builder（スライド作成）
+
 リサーチ → 設計 → 生成 → 配信までを一括実行します。
 
 ```
@@ -54,6 +98,7 @@ Claude Codeから使えるスキルが2つあります。
 ```
 
 ### 2. design-template（テンプレートカスタマイズ）
+
 企業ブランドカラーをリサーチして適用、またはモノトーンデフォルトを設定します。
 
 ```
@@ -93,7 +138,7 @@ Claude Codeから使えるスキルが2つあります。
 ## 環境変数（GitHub Secrets）
 
 スライドを `downloads/` にプッシュすると、GitHub Actionsで自動通知が実行されます。
-未設定の項目は自動的にスキップされます。
+未設定の項目は自動的にスキップされるため、通知が不要であれば設定不要です。
 
 ### GitHub Secretsに設定する変数
 
@@ -122,9 +167,9 @@ Claude Codeから使えるスキルが2つあります。
 
 ## デザインルール（カラー・フォント・レイアウト）
 
-### カラーパレット（デフォルト: モノトーン）
+### カラーパレット
 
-`design-template` スキルで企業ブランドカラーに変更可能です。
+`design-template` スキルで企業ブランドカラーに変更可能です。指定がなければモノトーンがデフォルトで適用されます。
 
 | 変数名 | デフォルトHEX | 用途 |
 |--------|-------------|------|
@@ -195,3 +240,7 @@ company-slide-builder/
 ├── package.json
 └── package-lock.json
 ```
+
+## ライセンス
+
+MIT
