@@ -181,8 +181,7 @@ Claude Codeから使えるスキルが2つあります。
 1. ブラウザで [https://myaccount.google.com/security](https://myaccount.google.com/security) にアクセス
 2. Googleアカウントにログインする
 
-<!-- スクリーンショット: Googleセキュリティページ -->
-<!-- <img src="docs/images/google-security-page.png" width="600" alt="Googleアカウントのセキュリティページ"> -->
+<img src="docs/images/google-security-page.png" width="600" alt="Googleアカウントのセキュリティページ">
 
 #### Step 2: 2段階認証を有効化する（まだの場合）
 
