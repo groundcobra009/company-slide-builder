@@ -1,10 +1,12 @@
+---
+name: slide-builder
+description: PowerPointスライドを自動生成する。「スライド作成」「プレゼン作成」「資料作成」「スライド作って」「プレゼン作って」「slide」「presentation」「PowerPoint」などで発動。
+---
+
 # Skill: slide-builder
 
 ## Description
 Detects requests to create PowerPoint slide decks. Routes to the slide-builder-planner agent. Works with the design-template skill for branding.
-
-## Trigger
-Keywords: "スライド作成", "プレゼン作成", "資料作成", "スライド作って", "プレゼン作って", "slide", "presentation", "PowerPoint", "PPTX"
 
 ## Behavior
 1. Collect user context: topic, company name, audience, purpose, slide count preference.
