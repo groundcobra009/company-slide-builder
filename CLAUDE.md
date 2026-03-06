@@ -437,3 +437,35 @@ git checkout <作業ブランチ名>
 | `MAIL_TO` | 任意 | メール送信先アドレス |
 | `MAIL_FROM` | 任意 | メール送信元アドレス |
 | `DISCORD_WEBHOOK_URL` | 任意 | DiscordチャンネルのWebhook URL |
+
+## 画像ファイルの命名規則
+
+README等で使用するスクリーンショットは `docs/images/` に配置します。
+
+### 命名フォーマット
+
+```
+{サービス名}-{操作・画面名}.png
+```
+
+- **すべて小文字**、単語区切りは **ハイフン（-）**
+- **サービス名**: `google`, `github`, `discord` など
+- **操作・画面名**: その画像が示す操作や画面を端的に表す英語
+
+### 例
+
+| ファイル名 | 内容 |
+|-----------|------|
+| `google-app-password-create.png` | Googleアプリパスワード発行画面 |
+| `google-app-password-result.png` | 発行されたアプリパスワード表示 |
+| `google-security-page.png` | Googleセキュリティページ |
+| `google-2fa-setup.png` | 2段階認証の設定画面 |
+| `github-secrets-setup.png` | GitHub Secrets設定画面 |
+| `github-secrets-add.png` | シークレット追加画面 |
+| `discord-webhook-create.png` | Discord Webhook作成画面 |
+
+### READMEでの参照方法
+
+```html
+<img src="docs/images/google-app-password-create.png" width="600" alt="説明テキスト">
+```

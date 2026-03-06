@@ -200,8 +200,7 @@ Claude Codeから使えるスキルが2つあります。
 2. 「アプリ名」に任意の名前を入力する（例: `GitHub Actions`、`SlideBuilder通知` など）
 3. **作成** ボタンをクリック
 
-<!-- スクリーンショット: アプリパスワード発行画面 -->
-<!-- <img src="docs/images/google-app-password-create.png" width="600" alt="アプリパスワードの発行画面"> -->
+<img src="docs/images/google-app-password-create.png" width="600" alt="アプリパスワードの発行画面">
 
 4. 16文字のアプリパスワードが表示される（例: `abcd efgh ijkl mnop`）
 
