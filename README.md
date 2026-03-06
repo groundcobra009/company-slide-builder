@@ -167,22 +167,6 @@ Claude Codeから使えるスキルが2つあります。
 7. **Add secret** をクリック
 8. 上記の各変数について繰り返す
 
-手順のスクリーンショットを追加したい場合は、`docs/images/` ディレクトリに画像を配置し、以下の形式でREADMEに埋め込めます:
-
-```markdown
-![設定画面の説明](docs/images/github-secrets-setup.png)
-```
-
-> **画像の追加方法**:
-> 1. `docs/images/` ディレクトリを作成: `mkdir -p docs/images`
-> 2. スクリーンショットを撮ってPNG形式で保存
-> 3. `docs/images/` に配置（例: `github-secrets-setup.png`, `app-password-step1.png` など）
-> 4. READMEに `![説明テキスト](docs/images/ファイル名.png)` で埋め込み
-> 5. 画像サイズを制限したい場合は HTMLタグを使用:
->    ```html
->    <img src="docs/images/github-secrets-setup.png" width="600" alt="GitHub Secrets設定画面">
->    ```
-
 ### MAIL_PASSWORD の取得方法（Googleアプリパスワード）
 
 通常のGmailパスワードではSMTP認証が失敗します。以下の手順で **アプリパスワード** を発行してください。
@@ -197,11 +181,17 @@ Claude Codeから使えるスキルが2つあります。
 1. ブラウザで [https://myaccount.google.com/security](https://myaccount.google.com/security) にアクセス
 2. Googleアカウントにログインする
 
+<!-- スクリーンショット: Googleセキュリティページ -->
+<!-- <img src="docs/images/google-security-page.png" width="600" alt="Googleアカウントのセキュリティページ"> -->
+
 #### Step 2: 2段階認証を有効化する（まだの場合）
 
 1. 「Googleにログインする方法」セクションの **2段階認証プロセス** をクリック
 2. 画面の指示に従って、電話番号の確認・認証アプリの設定などを完了する
 3. 2段階認証が「オン」になっていることを確認する
+
+<!-- スクリーンショット: 2段階認証の設定画面 -->
+<!-- <img src="docs/images/google-2fa-setup.png" width="600" alt="2段階認証プロセスの設定画面"> -->
 
 #### Step 3: アプリパスワードを発行する
 
@@ -209,46 +199,59 @@ Claude Codeから使えるスキルが2つあります。
    - または、セキュリティページ → 2段階認証プロセス → ページ下部の **アプリ パスワード** をクリック
 2. 「アプリ名」に任意の名前を入力する（例: `GitHub Actions`、`SlideBuilder通知` など）
 3. **作成** ボタンをクリック
+
+<!-- スクリーンショット: アプリパスワード発行画面 -->
+<!-- <img src="docs/images/google-app-password-create.png" width="600" alt="アプリパスワードの発行画面"> -->
+
 4. 16文字のアプリパスワードが表示される（例: `abcd efgh ijkl mnop`）
 
-```
-┌─────────────────────────────────────────┐
-│  生成されたアプリ パスワード              │
-│                                         │
-│     abcd efgh ijkl mnop                 │
-│                                         │
-│  ※ このパスワードは一度しか表示されません  │
-│  ※ 今すぐコピーしてください              │
-└─────────────────────────────────────────┘
-```
+<!-- スクリーンショット: 発行されたアプリパスワード -->
+<!-- <img src="docs/images/google-app-password-result.png" width="600" alt="生成されたアプリパスワード"> -->
 
 5. **パスワードをコピーして安全な場所に控える**
+
+> **注意**: アプリパスワードは発行時に一度だけ表示されます。閉じてしまうと再表示できません。
 
 #### Step 4: GitHubに登録する
 
 1. GitHubリポジトリの **Settings > Secrets and variables > Actions** を開く
 2. **New repository secret** をクリック
+
+<!-- スクリーンショット: GitHub Secrets設定画面 -->
+<!-- <img src="docs/images/github-secrets-setup.png" width="600" alt="GitHub Secretsの設定画面"> -->
+
 3. 以下を入力して **Add secret** をクリック:
    - **Name**: `MAIL_PASSWORD`
    - **Secret**: Step 3でコピーした16文字のパスワード（スペースは含めても含めなくてもOK）
 
+<!-- スクリーンショット: シークレット追加画面 -->
+<!-- <img src="docs/images/github-secrets-add.png" width="600" alt="New repository secretの入力画面"> -->
+
 #### アプリパスワードに関するよくある質問
 
-**Q: アプリパスワードは何回でも発行できますか？**
+<details>
+<summary><strong>Q: アプリパスワードは何回でも発行できますか？</strong></summary>
 
 はい、何回でも発行できます。用途ごとに別々のアプリパスワードを発行することも可能です（例: 「GitHub Actions用」「別のアプリ用」など）。
+</details>
 
-**Q: 一度表示されたパスワードを後から確認できますか？**
+<details>
+<summary><strong>Q: 一度表示されたパスワードを後から確認できますか？</strong></summary>
 
 いいえ、アプリパスワードは **発行時に一度だけ** 表示されます。閉じてしまうと再表示はできません。パスワードを忘れた場合は、古いものを削除して新しいアプリパスワードを発行してください。
+</details>
 
-**Q: アプリパスワードを削除・無効化したい場合は？**
+<details>
+<summary><strong>Q: アプリパスワードを削除・無効化したい場合は？</strong></summary>
 
 [アプリパスワード管理ページ](https://myaccount.google.com/apppasswords) から、発行済みのアプリパスワードを個別に削除（取り消し）できます。削除すると、そのパスワードを使った認証は即座に無効になります。
+</details>
 
-**Q: 2段階認証を無効にするとどうなりますか？**
+<details>
+<summary><strong>Q: 2段階認証を無効にするとどうなりますか？</strong></summary>
 
 2段階認証を無効にすると、発行済みのアプリパスワードはすべて自動的に無効化されます。再度2段階認証を有効にした後、新しいアプリパスワードの発行が必要です。
+</details>
 
 ### Discord Webhook URLの取得方法
 
@@ -322,6 +325,8 @@ company-slide-builder/
 │       └── slide-builder_workflow.md
 ├── .github/workflows/       ← GitHub Actions（自動通知）
 │   └── notify-pptx.yml
+├── docs/
+│   └── images/              ← README用スクリーンショット
 ├── scripts/
 │   ├── template.js          ← コアテンプレートライブラリ（22パターン）
 │   └── test.js              ← 全パターンテスト
