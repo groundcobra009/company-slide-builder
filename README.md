@@ -144,26 +144,122 @@ Claude Codeから使えるスキルが2つあります。
 
 リポジトリの **Settings > Secrets and variables > Actions** で設定してください。
 
-| 変数名 | 必須 | 説明 |
-|--------|------|------|
-| `MAIL_USERNAME` | 任意 | Gmailアドレス（SMTP認証用） |
-| `MAIL_PASSWORD` | 任意 | Googleアプリパスワード（16文字） |
-| `MAIL_TO` | 任意 | メール送信先アドレス |
-| `MAIL_FROM` | 任意 | メール送信元アドレス |
-| `DISCORD_WEBHOOK_URL` | 任意 | DiscordチャンネルのWebhook URL |
+| 変数名 | 必須 | 説明 | 設定値の例 |
+|--------|------|------|-----------|
+| `MAIL_USERNAME` | 任意 | Gmailアドレス（SMTP認証用） | `taro.yamada@gmail.com` |
+| `MAIL_PASSWORD` | 任意 | Googleアプリパスワード（16文字） | `abcd efgh ijkl mnop` |
+| `MAIL_TO` | 任意 | メール送信先アドレス | `team@example.com` |
+| `MAIL_FROM` | 任意 | メール送信元アドレス（通常はMAIL_USERNAMEと同じ） | `taro.yamada@gmail.com` |
+| `DISCORD_WEBHOOK_URL` | 任意 | DiscordチャンネルのWebhook URL | `https://discord.com/api/webhooks/1234567890/AbCdEfGh...` |
+
+> **メール通知を使う場合**: `MAIL_USERNAME`・`MAIL_PASSWORD`・`MAIL_TO`・`MAIL_FROM` の4つすべてを設定してください。1つでも欠けるとメール通知はスキップされます。
+
+> **Discord通知を使う場合**: `DISCORD_WEBHOOK_URL` のみ設定すればOKです。
+
+### GitHub Secretsの設定手順
+
+1. GitHubでリポジトリページを開く
+2. **Settings**（歯車アイコン）をクリック
+3. 左メニューの **Secrets and variables** > **Actions** をクリック
+4. **New repository secret** ボタンをクリック
+5. **Name** にシークレット名（例: `MAIL_USERNAME`）を入力
+6. **Secret** に値（例: `taro.yamada@gmail.com`）を入力
+7. **Add secret** をクリック
+8. 上記の各変数について繰り返す
+
+手順のスクリーンショットを追加したい場合は、`docs/images/` ディレクトリに画像を配置し、以下の形式でREADMEに埋め込めます:
+
+```markdown
+![設定画面の説明](docs/images/github-secrets-setup.png)
+```
+
+> **画像の追加方法**:
+> 1. `docs/images/` ディレクトリを作成: `mkdir -p docs/images`
+> 2. スクリーンショットを撮ってPNG形式で保存
+> 3. `docs/images/` に配置（例: `github-secrets-setup.png`, `app-password-step1.png` など）
+> 4. READMEに `![説明テキスト](docs/images/ファイル名.png)` で埋め込み
+> 5. 画像サイズを制限したい場合は HTMLタグを使用:
+>    ```html
+>    <img src="docs/images/github-secrets-setup.png" width="600" alt="GitHub Secrets設定画面">
+>    ```
 
 ### MAIL_PASSWORD の取得方法（Googleアプリパスワード）
 
-1. [Googleアカウント](https://myaccount.google.com/) にログイン
-2. **セキュリティ** > **2段階認証プロセス** を有効化（まだの場合）
-3. **2段階認証プロセス** のページ下部にある **アプリ パスワード** をクリック
-4. アプリ名に「GitHub Actions」など任意の名前を入力して **作成**
-5. 表示された16文字のパスワードをコピー
-6. GitHubリポジトリの **Settings > Secrets and variables > Actions > New repository secret** で:
-   - Name: `MAIL_PASSWORD`
-   - Secret: コピーした16文字のパスワード
+通常のGmailパスワードではSMTP認証が失敗します。以下の手順で **アプリパスワード** を発行してください。
 
-> **注意**: 通常のGmailパスワードではSMTP認証が失敗します。必ずアプリパスワードを使用してください。
+#### 前提条件
+
+- Googleアカウントで **2段階認証プロセス** が有効になっていること
+- 2段階認証が未設定の場合は、先に有効化が必要です
+
+#### Step 1: Googleアカウントのセキュリティページを開く
+
+1. ブラウザで [https://myaccount.google.com/security](https://myaccount.google.com/security) にアクセス
+2. Googleアカウントにログインする
+
+#### Step 2: 2段階認証を有効化する（まだの場合）
+
+1. 「Googleにログインする方法」セクションの **2段階認証プロセス** をクリック
+2. 画面の指示に従って、電話番号の確認・認証アプリの設定などを完了する
+3. 2段階認証が「オン」になっていることを確認する
+
+#### Step 3: アプリパスワードを発行する
+
+1. [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) にアクセス
+   - または、セキュリティページ → 2段階認証プロセス → ページ下部の **アプリ パスワード** をクリック
+2. 「アプリ名」に任意の名前を入力する（例: `GitHub Actions`、`SlideBuilder通知` など）
+3. **作成** ボタンをクリック
+4. 16文字のアプリパスワードが表示される（例: `abcd efgh ijkl mnop`）
+
+```
+┌─────────────────────────────────────────┐
+│  生成されたアプリ パスワード              │
+│                                         │
+│     abcd efgh ijkl mnop                 │
+│                                         │
+│  ※ このパスワードは一度しか表示されません  │
+│  ※ 今すぐコピーしてください              │
+└─────────────────────────────────────────┘
+```
+
+5. **パスワードをコピーして安全な場所に控える**
+
+#### Step 4: GitHubに登録する
+
+1. GitHubリポジトリの **Settings > Secrets and variables > Actions** を開く
+2. **New repository secret** をクリック
+3. 以下を入力して **Add secret** をクリック:
+   - **Name**: `MAIL_PASSWORD`
+   - **Secret**: Step 3でコピーした16文字のパスワード（スペースは含めても含めなくてもOK）
+
+#### アプリパスワードに関するよくある質問
+
+**Q: アプリパスワードは何回でも発行できますか？**
+
+はい、何回でも発行できます。用途ごとに別々のアプリパスワードを発行することも可能です（例: 「GitHub Actions用」「別のアプリ用」など）。
+
+**Q: 一度表示されたパスワードを後から確認できますか？**
+
+いいえ、アプリパスワードは **発行時に一度だけ** 表示されます。閉じてしまうと再表示はできません。パスワードを忘れた場合は、古いものを削除して新しいアプリパスワードを発行してください。
+
+**Q: アプリパスワードを削除・無効化したい場合は？**
+
+[アプリパスワード管理ページ](https://myaccount.google.com/apppasswords) から、発行済みのアプリパスワードを個別に削除（取り消し）できます。削除すると、そのパスワードを使った認証は即座に無効になります。
+
+**Q: 2段階認証を無効にするとどうなりますか？**
+
+2段階認証を無効にすると、発行済みのアプリパスワードはすべて自動的に無効化されます。再度2段階認証を有効にした後、新しいアプリパスワードの発行が必要です。
+
+### Discord Webhook URLの取得方法
+
+1. Discordで通知を送りたいチャンネルの設定（歯車アイコン）を開く
+2. **連携サービス** > **ウェブフック** をクリック
+3. **新しいウェブフック** をクリック
+4. 名前を設定（例: `SlideBuilder通知`）
+5. **ウェブフックURLをコピー** をクリック
+6. GitHubの **Settings > Secrets and variables > Actions > New repository secret** で:
+   - **Name**: `DISCORD_WEBHOOK_URL`
+   - **Secret**: コピーしたURL
 
 ## デザインルール（カラー・フォント・レイアウト）
 
