@@ -6,6 +6,8 @@
 GitHubからクローンして、Claude Codeで即座に使えるように設計されています。
 
 - **テンプレートライブラリ**: `scripts/template.js`（全22パターンのスライド生成関数）
+- **企業プリセット**: `scripts/presets/`（企業ごとのカラー・フォント定義）
+- **参照資料**: `references/`（企業IR資料等のPDF、gitignored）
 - **出力先**: `output/` ディレクトリ（プロジェクトルート直下、gitignored）
 - **ダウンロードフォルダ**: `downloads/pptx/`（PPTX）、`downloads/pdf/`（PDF）
 - **使用ライブラリ**: pptxgenjs (Node.js)
@@ -45,7 +47,24 @@ cp .env.example .env
 ユーザーが会社名やURLを指定した場合、スライド設計の前にブランドリサーチを行い、`scripts/template.js` のカラー設定を更新します。
 会社名・URLの指定がない場合はモノトーンデフォルトのままスキップしてください。
 
-#### 調査手順（段階的に深掘りする）
+#### Step 0: プリセット確認（最優先）
+
+まず `scripts/presets/` にプリセットがあるか確認する:
+
+```javascript
+var presets = require("./scripts/presets");
+var preset = presets.find("ドコモ");  // 会社名で検索
+if (preset) {
+  // プリセットがあれば即適用 → WebSearch不要
+  var t = require("./scripts/template.js");
+  presets.apply(preset, t);
+}
+```
+
+プリセットが見つかった場合は以下の調査手順をスキップし、そのまま Phase 1 に進む。
+プリセットがない場合のみ、以下の WebSearch による調査を行う。
+
+#### 調査手順（プリセットがない場合、段階的に深掘りする）
 
 1. **公式サイト特定**: WebSearch で会社名 → 公式サイトURLを特定
 2. **トップページ調査**: WebFetch でトップページからカラー抽出

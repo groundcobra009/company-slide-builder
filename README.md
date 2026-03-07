@@ -350,7 +350,12 @@ company-slide-builder/
 │   └── images/              ← README用スクリーンショット
 ├── scripts/
 │   ├── template.js          ← コアテンプレートライブラリ（22パターン）
-│   └── test.js              ← 全パターンテスト
+│   ├── test.js              ← 全パターンテスト
+│   └── presets/             ← 企業カラープリセット
+│       ├── index.js         ← プリセット管理（検索・適用）
+│       └── docomo.js        ← NTTドコモ
+├── references/              ← 参照用IR資料（gitignored）
+│   └── docomo/              ← 企業ごとにサブディレクトリ
 ├── downloads/               ← 配信用（GitHub経由ダウンロード）
 │   ├── pptx/
 │   └── pdf/

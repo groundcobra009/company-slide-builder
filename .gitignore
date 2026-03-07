@@ -4,5 +4,6 @@ node_modules/
 !downloads/pptx/*.pptx
 !downloads/pdf/*.pdf
 output/
+references/
 .env
 .DS_Store
