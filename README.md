@@ -55,6 +55,16 @@ cp .env.example .env
 
 GitHub Secretsの設定方法は [環境変数（GitHub Secrets）](#環境変数github-secrets) を参照してください。
 
+設定が完了すると、スライド作成後に以下のような通知が届きます:
+
+**Discord通知**
+
+<img src="docs/images/discord-notification-example.png" width="600" alt="Discord通知の表示例">
+
+**メール通知**
+
+<img src="docs/images/email-notification-example.png" width="600" alt="メール通知の表示例">
+
 ## 使い方
 
 ### Claude Code経由（推奨）
