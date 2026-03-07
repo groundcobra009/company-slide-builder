@@ -62,11 +62,11 @@ jobs:
       # =============================================
       # PPTX → PDF 自動変換（PDFがまだない場合）
       # =============================================
-      - name: Install LibreOffice
+      - name: Install LibreOffice and Japanese fonts
         if: steps.detect.outputs.pptx_found == 'true'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq libreoffice-impress
+          sudo apt-get install -y -qq libreoffice-impress fonts-noto-cjk
 
       - name: Convert PPTX to PDF
         if: steps.detect.outputs.pptx_found == 'true'
@@ -124,11 +124,15 @@ jobs:
             echo "pdf_basename=${{ steps.detect.outputs.pdf_basename }}" >> "$GITHUB_OUTPUT"
           fi
 
-          # 通知用のベース名（拡張子なし）
+          # 通知用の表示名（拡張子なし = スライドタイトル）
           if [ "${{ steps.detect.outputs.pptx_found }}" == "true" ]; then
             echo "display_name=${{ steps.detect.outputs.pptx_basename }}" >> "$GITHUB_OUTPUT"
+            TITLE="${{ steps.detect.outputs.stem }}"
+            echo "title=$TITLE" >> "$GITHUB_OUTPUT"
           elif [ "${{ steps.detect.outputs.pdf_found }}" == "true" ]; then
             echo "display_name=${{ steps.detect.outputs.pdf_basename }}" >> "$GITHUB_OUTPUT"
+            TITLE=$(basename "${{ steps.detect.outputs.first_pdf }}" .pdf)
+            echo "title=$TITLE" >> "$GITHUB_OUTPUT"
           fi
 
       # =============================================
@@ -174,8 +178,8 @@ jobs:
           curl -s $FILE_ARGS \
           -F "payload_json={
             \"embeds\": [{
-              \"title\": \"📊 新しいスライドが作成されました\",
-              \"description\": \"**${DISPLAY_NAME}**\n\nコミット: ${COMMIT_MSG}${ATTACH_TEXT}\",
+              \"title\": \"📊 ${{ steps.resolve.outputs.title }}\",
+              \"description\": \"コミット: ${COMMIT_MSG}${ATTACH_TEXT}\",
               \"color\": 854563,
               \"fields\": [
                 {\"name\": \"リポジトリ\", \"value\": \"${REPO}\", \"inline\": true},
@@ -235,7 +239,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "📊 新しいスライド: ${{ steps.resolve.outputs.display_name }} (PPTX + PDF)"
+          subject: "📊 ${{ steps.resolve.outputs.title }}"
           to: ${{ secrets.MAIL_TO }}
           from: ${{ secrets.MAIL_FROM }}
           body: |

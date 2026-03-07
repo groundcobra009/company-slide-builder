@@ -227,15 +227,13 @@ Google の案内では「覚えておく必要はない」とありますが、G
 1. GitHubリポジトリの **Settings > Secrets and variables > Actions** を開く
 2. **New repository secret** をクリック
 
-<!-- スクリーンショット: GitHub Secrets設定画面 -->
-<!-- <img src="docs/images/github-secrets-setup.png" width="600" alt="GitHub Secretsの設定画面"> -->
+<img src="docs/images/github-secrets-setup.png" width="600" alt="GitHub Secretsの設定画面">
 
 3. 以下を入力して **Add secret** をクリック:
    - **Name**: `MAIL_PASSWORD`
    - **Secret**: Step 3でコピーした16文字のパスワード（スペースは含めても含めなくてもOK）
 
-<!-- スクリーンショット: シークレット追加画面 -->
-<!-- <img src="docs/images/github-secrets-add.png" width="600" alt="New repository secretの入力画面"> -->
+<img src="docs/images/github-secrets-add.png" width="600" alt="New repository secretの入力画面">
 
 #### アプリパスワードに関するよくある質問
 
@@ -270,6 +268,9 @@ Google の案内では「覚えておく必要はない」とありますが、G
 3. **新しいウェブフック** をクリック
 4. 名前を設定（例: `SlideBuilder通知`）
 5. **ウェブフックURLをコピー** をクリック
+
+<img src="docs/images/discord-webhook-create.png" width="600" alt="Discord Webhook作成画面">
+
 6. GitHubの **Settings > Secrets and variables > Actions > New repository secret** で:
    - **Name**: `DISCORD_WEBHOOK_URL`
    - **Secret**: コピーしたURL
