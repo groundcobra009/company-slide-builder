@@ -1,0 +1,33 @@
+/**
+ * 清水建設 プリセット
+ *
+ * カラー抽出根拠:
+ *   - Primary Blue (#003399): 清水建設ブルー
+ *   - Light Blue (#E0E8F5): カード背景
+ */
+
+module.exports = {
+  name: "清水建設",
+  slug: "shimizu",
+  colors: {
+    DARK_GREEN: "003399",
+    CREAM_YELLOW: "E0E8F5",
+    LIGHT_GRAY: "F5F5F5",
+    TEXT_DARK: "333333",
+    TEXT_MEDIUM: "666666",
+    TEXT_LIGHT: "999999",
+    WHITE: "FFFFFF",
+    HIGHLIGHT_YELLOW: "003399"
+  },
+  chartColors: [
+    "003399",
+    "333333",
+    "002270",
+    "666666",
+    "4D70C2",
+    "999999",
+    "99AAD9",
+    "CCCCCC"
+  ],
+  font: "Noto Sans JP",
+};

@@ -3,6 +3,8 @@
 Claude Codeに指示するだけで、全22パターンの高品質ビジネススライドを自動生成するClaude Codeスキルです。
 トヨマネ式メソッド + Cynthialyデザインシステム + ルバート図解パターンを組み合わせた設計思想。
 
+**日本の上場企業95社 + 霞が関省庁17機関のブランドカラープリセットを内蔵。** 企業名を伝えるだけで即座にブランドカラーが適用されます。
+
 > **Note**: このリポジトリは現在プライベートです。将来的にパブリック公開を予定しています。
 
 ## クイックスタート
@@ -285,6 +287,262 @@ Google の案内では「覚えておく必要はない」とありますが、G
    - **Name**: `DISCORD_WEBHOOK_URL`
    - **Secret**: コピーしたURL
 
+## 企業プリセットライブラリ（112社/機関）
+
+企業名を指定するだけで、ブランドカラーが自動適用されます。WebSearchによるリサーチが不要になり、即座にスライド作成を開始できます。
+
+```
+「トヨタのブランドカラーでスライドを作って」
+「農林水産省のテンプレートで資料を作成して」
+```
+
+### 使い方（スクリプトから直接使う場合）
+
+```javascript
+var presets = require("./scripts/presets");
+
+// 名前で検索（部分一致）
+var preset = presets.find("トヨタ");
+var preset = presets.find("農林水産");
+var preset = presets.find("デジタル庁");
+
+// slugで取得
+var preset = presets.get("toyota");
+
+// template.js に適用
+var t = require("./scripts/template.js");
+presets.apply(preset, t);
+
+// 一覧取得
+var list = presets.list(); // [{slug, name}, ...]
+```
+
+### 収録プリセット一覧
+
+<details>
+<summary><strong>テック企業（18社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `toyota` | トヨタ自動車 | `#EB0A1E` |
+| `sony` | ソニーグループ | `#000000` |
+| `panasonic` | パナソニック | `#0054A6` |
+| `hitachi` | 日立製作所 | `#E4002B` |
+| `toshiba` | 東芝 | `#CC0000` |
+| `sharp` | シャープ | `#E6000D` |
+| `nec` | NEC | `#1414A0` |
+| `fujitsu` | 富士通 | `#E60012` |
+| `keyence` | キーエンス | `#E4002B` |
+| `canon` | キヤノン | `#BC0024` |
+| `nikon` | ニコン | `#FFE100` |
+| `fujifilm` | 富士フイルム | `#EE1337` |
+| `olympus` | オリンパス | `#08107B` |
+| `nintendo` | 任天堂 | `#E60012` |
+| `murata` | 村田製作所 | `#F5002F` |
+| `nidec` | ニデック | `#0AA547` |
+| `denso` | デンソー | `#E6232A` |
+| `hoya` | HOYA | `#003087` |
+
+</details>
+
+<details>
+<summary><strong>通信・IT（12社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `docomo` | NTTドコモ | `#CC0033` |
+| `ntt` | 日本電信電話 | `#0068B7` |
+| `softbank` | ソフトバンク | `#A0A0A0` |
+| `kddi` | KDDI | `#FF6600` |
+| `rakuten` | 楽天グループ | `#BF0000` |
+| `z-holdings` | Zホールディングス | `#FF0033` |
+| `cyberagent` | サイバーエージェント | `#1DB446` |
+| `dena` | DeNA | `#E4002B` |
+| `mercari` | メルカリ | `#FF0211` |
+| `moneyforward` | マネーフォワード | `#5B62DE` |
+| `line` | LINE | `#06C755` |
+| `recruit` | リクルート | `#2B2B2B` |
+
+</details>
+
+<details>
+<summary><strong>金融（10社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `mufg` | 三菱UFJフィナンシャル・グループ | `#E60012` |
+| `smfg` | 三井住友フィナンシャルグループ | `#009B63` |
+| `mizuho` | みずほフィナンシャルグループ | `#1E3C78` |
+| `nomura` | 野村ホールディングス | `#CC0000` |
+| `daiwa-securities` | 大和証券グループ | `#F39800` |
+| `tokio-marine` | 東京海上ホールディングス | `#003399` |
+| `msad` | MS&ADインシュアランスグループ | `#003E7E` |
+| `sompo` | SOMPOホールディングス | `#003E82` |
+| `dai-ichi-life` | 第一生命ホールディングス | `#E50020` |
+| `japan-post` | 日本郵政グループ | `#CC0000` |
+
+</details>
+
+<details>
+<summary><strong>総合商社（5社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `mitsubishi-corp` | 三菱商事 | `#E60012` |
+| `mitsui` | 三井物産 | `#003E7E` |
+| `itochu` | 伊藤忠商事 | `#C41E3A` |
+| `sumitomo-corp` | 住友商事 | `#003366` |
+| `marubeni` | 丸紅 | `#CC0000` |
+
+</details>
+
+<details>
+<summary><strong>自動車・製造（9社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `honda` | 本田技研工業 | `#CC0000` |
+| `nissan` | 日産自動車 | `#C3002F` |
+| `suzuki` | スズキ | `#003399` |
+| `mazda` | マツダ | `#910428` |
+| `subaru` | SUBARU | `#003366` |
+| `isuzu` | いすゞ自動車 | `#CC0000` |
+| `bridgestone` | ブリヂストン | `#E60012` |
+| `komatsu` | コマツ | `#FFB800` |
+| `daikin` | ダイキン工業 | `#004B97` |
+
+</details>
+
+<details>
+<summary><strong>運輸（5社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `jr-east` | JR東日本 | `#009944` |
+| `jr-west` | JR西日本 | `#0072BC` |
+| `jr-central` | JR東海 | `#FF6600` |
+| `ana` | ANAホールディングス | `#003B73` |
+| `jal` | 日本航空 | `#CC0000` |
+
+</details>
+
+<details>
+<summary><strong>エネルギー（4社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `eneos` | ENEOS | `#E60012` |
+| `tepco` | 東京電力ホールディングス | `#003399` |
+| `kansai-electric` | 関西電力 | `#003E82` |
+| `inpex` | INPEX | `#003E7E` |
+
+</details>
+
+<details>
+<summary><strong>製薬（7社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `takeda` | 武田薬品工業 | `#E60012` |
+| `daiichi-sankyo` | 第一三共 | `#E2005E` |
+| `astellas` | アステラス製薬 | `#0070C0` |
+| `otsuka` | 大塚ホールディングス | `#003399` |
+| `eisai` | エーザイ | `#CC0033` |
+| `shionogi` | 塩野義製薬 | `#003E82` |
+| `chugai` | 中外製薬 | `#E60012` |
+
+</details>
+
+<details>
+<summary><strong>食品・飲料（6社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `asahi` | アサヒグループホールディングス | `#003087` |
+| `kirin` | キリンホールディングス | `#CC0000` |
+| `ajinomoto` | 味の素 | `#E60012` |
+| `meiji` | 明治ホールディングス | `#E8530E` |
+| `nissin-foods` | 日清食品ホールディングス | `#CC0000` |
+| `yakult` | ヤクルト本社 | `#CC0000` |
+
+</details>
+
+<details>
+<summary><strong>消費財・小売（6社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `fast-retailing` | ファーストリテイリング | `#FF0000` |
+| `seven-and-i` | セブン&アイ・ホールディングス | `#E60012` |
+| `aeon` | イオン | `#9B1F84` |
+| `kao` | 花王 | `#E60012` |
+| `unicharm` | ユニ・チャーム | `#003399` |
+| `nippon-paint` | 日本ペイントホールディングス | `#003E82` |
+
+</details>
+
+<details>
+<summary><strong>不動産（5社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `mitsui-fudosan` | 三井不動産 | `#003366` |
+| `mitsubishi-estate` | 三菱地所 | `#CC0000` |
+| `sumitomo-realty` | 住友不動産 | `#003399` |
+| `daiwa-house` | 大和ハウス工業 | `#E85D0F` |
+| `sekisui-house` | 積水ハウス | `#003399` |
+
+</details>
+
+<details>
+<summary><strong>建設（4社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `kajima` | 鹿島建設 | `#003E82` |
+| `shimizu` | 清水建設 | `#003399` |
+| `obayashi` | 大林組 | `#003366` |
+| `taisei` | 大成建設 | `#E8530E` |
+
+</details>
+
+<details>
+<summary><strong>素材（4社）</strong></summary>
+
+| slug | 企業名 | Primary Color |
+|------|--------|---------------|
+| `shin-etsu` | 信越化学工業 | `#003087` |
+| `tokyo-electron` | 東京エレクトロン | `#003E7E` |
+| `nippon-steel` | 日本製鉄 | `#003366` |
+| `jfe` | JFEホールディングス | `#003399` |
+
+</details>
+
+<details>
+<summary><strong>霞が関 省庁（17機関）</strong></summary>
+
+| slug | 機関名 | Primary Color |
+|------|--------|---------------|
+| `cao` | 内閣府 | `#003366` |
+| `soumu` | 総務省 | `#003399` |
+| `moj` | 法務省 | `#006633` |
+| `mofa` | 外務省 | `#003366` |
+| `mof` | 財務省 | `#003366` |
+| `mext` | 文部科学省 | `#003399` |
+| `mhlw` | 厚生労働省 | `#003E82` |
+| `maff` | 農林水産省 | `#006633` |
+| `meti` | 経済産業省 | `#003399` |
+| `mlit` | 国土交通省 | `#003399` |
+| `env` | 環境省 | `#006633` |
+| `mod` | 防衛省 | `#1A2744` |
+| `digital` | デジタル庁 | `#6B21A8` |
+| `reconstruction` | 復興庁 | `#009944` |
+| `fsa` | 金融庁 | `#003366` |
+| `caa` | 消費者庁 | `#E87511` |
+| `cfa` | こども家庭庁 | `#E84B8A` |
+
+</details>
+
 ## デザインルール（カラー・フォント・レイアウト）
 
 ### カラーパレット
@@ -351,9 +609,12 @@ company-slide-builder/
 ├── scripts/
 │   ├── template.js          ← コアテンプレートライブラリ（22パターン）
 │   ├── test.js              ← 全パターンテスト
-│   └── presets/             ← 企業カラープリセット
+│   └── presets/             ← 企業カラープリセット（112社/機関）
 │       ├── index.js         ← プリセット管理（検索・適用）
-│       └── docomo.js        ← NTTドコモ
+│       ├── docomo.js        ← NTTドコモ
+│       ├── toyota.js        ← トヨタ自動車
+│       ├── ...              ← 上場企業95社 + 省庁17機関
+│       └── cfa.js           ← こども家庭庁
 ├── references/              ← 参照用IR資料（gitignored）
 │   └── docomo/              ← 企業ごとにサブディレクトリ
 ├── downloads/               ← 配信用（GitHub経由ダウンロード）
